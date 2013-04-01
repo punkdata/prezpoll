@@ -3,7 +3,8 @@ import datetime
 from flask import Flask
 from flask import render_template
 from flask import flash, redirect, url_for, request, make_response
-from flask.ext.pymongo import PyMongo
+#from flask.ext.pymongo import PyMongo
+from pymongo import Connection
 
 #Create an instance of flask
 app = Flask(__name__)
@@ -14,7 +15,7 @@ PORT = int(os.environ['OPENSHIFT_MONGODB_DB_PORT'])
 DB_USER = os.environ['OPENSHIFT_MONGODB_DB_USERNAME']
 DB_PWD = os.environ['OPENSHIFT_MONGODB_DB_PASSWORD']
 DB_NAME = 'prezpoll' #data base name
-
+'''
 app.config['MDB_HOST'] = HOST
 app.config['MDB_PORT'] = PORT
 app.config['MDB_USERNAME'] = DB_USER
@@ -22,7 +23,12 @@ app.config['MDB_PASSWORD'] = DB_PWD
 app.config['MDB_DBNAME'] = DB_NAME
 
 mdb = PyMongo(app, config_prefix='MDB') #Create instance of PyMongo object
+'''
+app.config['PROPAGATE_EXCEPTIONS'] = True
 
+muri = "mongodb://" + DB_USER + ":" + DB_PWD + "@" + HOST + ":" + str(PORT)
+mconn = Connection(muri)
+db = mconn[DB_NAME]
 #This function capitalizes names separated with spaces
 @app.template_filter("caps")
 def capWords(s):
@@ -39,7 +45,7 @@ def capWords(s):
 @app.route("/")
 @app.route("/index")
 def index():
-    elections = mdb.db.elections.find({"electionyear":2012})
+    elections = db.elections.find({"electionyear":2012})
     title = "U.S. Prez Pol 2012 - Who are you voting for this Election?"
     #Check if user has already voted
     voted = None
@@ -60,14 +66,14 @@ def vote():
     v = request.form['vote'] #Get the data from the post
     sel = {"pick":v,"timestamp":datetime.datetime.utcnow()}#Build the document to be saved
     #insert into the mongodb
-    mdb.db.vote.insert(sel)
+    db.vote.insert(sel)
     
     return redirect("/results")
 
 @app.route("/results", methods=["GET","POST"])
 def results():
-    dem = mdb.db.vote.find({"pick":"obama"}).count()
-    rep = mdb.db.vote.find({"pick":"romney"}).count()
+    dem = db.vote.find({"pick":"obama"}).count()
+    rep = db.vote.find({"pick":"romney"}).count()
     lead = None
     color = None
     
