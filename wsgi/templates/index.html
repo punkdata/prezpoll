@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 id='hdr1'>
+  U.S Presidential 2012 Poll
+</h1>
+<p style="font-family: sans-serif; font-size: 11pt; padding-left: 20px; color: grey">
+ This poll only captures your vote.<br>
+ This data is being collected as an experiment but primarily for fun.<br>
+ No personal data is being recorded in this poll.<br><br>
+ Select your candidate, click the <b>"VOTE"</b> button and see the current results.
+</p>
+
+<div id='container'>  
+ <form id="frm" action="/vote" method="post" onsubmit="return TestDataCheck(this);">
+{% for election in elections %}
+
+      
+      <div id="dems">
+        <p>Democratic Candidate</p>
+        <br>
+        <img src='/static/obama.jpg'>
+        <br>
+        <p>{{ election.democrat|caps }}</p>
+        <input type="radio" name="vote" value="obama">Obama
+      </div>
+      <div id="reps">
+        <p>Republican Candidate</p>
+        <br>
+        <img src='/static/romney.jpg'>
+        <br>  
+        <p>{{ election.republican|caps }}</p>
+        <input type="radio" name="vote" value="romney">Romney
+      </div>
+      <div style="clear: both; float: left; text-align: center; padding-top: 10px; padding-left: 24%" >
+        <input type="submit" value="Vote">
+      </div>
+      <div style="font-family: sans-serif; font-size: 11pt; color: grey;
+        clear: both; float: left; text-align: center; padding-top: 20px; padding-left: 10px" >
+        <p>twitter: <a href='https://twitter.com/twrivera'>@twrivera</a></p>
+      </div>
+      
+{% endfor %}
+ </form>
+</div> 
+ {% endblock %}

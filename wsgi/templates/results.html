@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+{# Here we check if user has previously voted #} 
+{% if voted %}
+ 
+<div style="clear: both; padding-top: 30px; padding-left: 10px; font-family: sans-serif; color: red">
+ <p> You are only allowed one vote per poll. Enjoy watching the results of this poll.</p> 
+</div>
+<div style="clear: both; float: left; text-align: center;
+      padding-top: 10px; padding-left: 17%;">
+  <input type="button" value="Click for Results" onClick="window.location='/results' ">
+ </div>
+
+{% else %}
+ 
+{# Here we load the page normally #} 
+<h1 style="font-family: sans-serif; font-size: 14pt; padding-left: 10px; padding-top: 20;
+   color: grey;">
+ Current Poll Totals
+</h1>
+<div style="clear: both; padding-left: 10px; font-family: sans-serif;">
+  <p style="color: {{ color }}">{{ lead }}</p>
+</div>
+ <div id="dems">
+  <p>Obama Totals</p>
+  <p class="totals">{{ dem }}</p>
+ </div>
+ <div id="reps">
+  <p>Romney Totals</p>
+  <p class="totals">{{ rep }}</p>
+ </div>
+ <div style="clear: both; float: left; text-align: center;
+      padding-top: 10px; padding-left: 17%; font-family: sans-serif; font-size: 14pt">
+  <input type="button" value="Refresh" onClick="window.location='/results' ">
+ </div>
+ <div style="font-family: sans-serif; font-size: 11pt; color: grey;
+  clear: both; float: left; text-align: center; padding-top: 20px; padding-left: 10px" >
+  <p>twitter: <a href='https://twitter.com/twrivera'>@twrivera</a></p>
+</div>
+{% endif %}
+{% endblock %}
