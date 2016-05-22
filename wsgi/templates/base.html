@@ -5,19 +5,6 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='prezpoll.css') }}">
   </head>
   <body class="bodyclass ">
-    {% block content %}{% endblock %}
-  <SCRIPT TYPE="text/javascript">
-  
-  function TestDataCheck(form)
-  {
-    var rd = form.vote;
-    for (var i=0; el=rd[i]; i++) {
-      if (el.checked) return true; 
-    }
-    alert("Don't Be a Coward and Pick a Candidate!");
-    return false;
-  }
-  </SCRIPT>
-    
+    {% block content %}{% endblock %}  
   </body>
 </html>
