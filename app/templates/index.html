@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h1 id='hdr1'>
-  U.S Presidential 2012 Poll
+  U.S Presidential 2016 Poll
 </h1>
 <p style="font-family: sans-serif; font-size: 11pt; padding-left: 20px; color: grey">
  This poll only captures your vote.<br>
@@ -18,18 +18,18 @@
       <div id="dems">
         <p>Democratic Candidate</p>
         <br>
-        <img src='/static/obama.jpg'>
+        <img src='/static/clinton.jpg'>
         <br>
         <p>{{ election.democrat|caps }}</p>
-        <input type="radio" name="vote" value="obama">Obama
+        <input type="radio" name="vote" value="clinton">Clinton
       </div>
       <div id="reps">
         <p>Republican Candidate</p>
         <br>
-        <img src='/static/romney.jpg'>
+        <img src='/static/trump.jpg'>
         <br>  
         <p>{{ election.republican|caps }}</p>
-        <input type="radio" name="vote" value="romney">Romney
+        <input type="radio" name="vote" value="trump">Trump
       </div>
       <div style="clear: both; float: left; text-align: center; padding-top: 10px; padding-left: 24%" >
         <input type="submit" value="Vote">
