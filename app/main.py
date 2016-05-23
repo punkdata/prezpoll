@@ -15,22 +15,20 @@ app = Flask(__name__)
 # DB_USER = os.environ['OPENSHIFT_MONGODB_DB_USERNAME']
 # DB_PWD = os.environ['OPENSHIFT_MONGODB_DB_PASSWORD']
 
-HOST = 'localhost'
-PORT = '27017'
-DB_NAME = 'prezpoll' #data base name
-'''
-app.config['MDB_HOST'] = HOST
-app.config['MDB_PORT'] = PORT
-app.config['MDB_USERNAME'] = DB_USER
-app.config['MDB_PASSWORD'] = DB_PWD
-app.config['MDB_DBNAME'] = DB_NAME
+HOST = ''
+PORT = ''
+DB_NAME = '' #data base name
+DB_USER = ''
+DB_PWD = ''
 
-mdb = PyMongo(app, config_prefix='MDB') #Create instance of PyMongo object
-'''
 app.config['PROPAGATE_EXCEPTIONS'] = True
-# openshift connection
-# muri = "mongodb://" + DB_USER + ":" + DB_PWD + "@" + HOST + ":" + str(PORT)
-muri = "mongodb://" + HOST + ":" + PORT
+
+# Use this when auth is required
+muri = "mongodb://" + DB_USER + ":" + DB_PWD + "@" + HOST + ":" + str(PORT) +"/"+DB_NAME+"?authMechanism=SCRAM-SHA-1"
+
+#Use this when NO auth is required
+#muri = "mongodb://" + HOST + ":" + PORT
+
 mconn = MongoClient(muri)
 db = mconn[DB_NAME]
 #This function capitalizes names separated with spaces
@@ -96,5 +94,5 @@ def results():
     return render_template("results.html", dem = dem, rep = rep, lead = lead, color = color)
     
 if __name__ == "__main__":
-   app.run(host='0.0.0.0', debug=True, port=5000)
+   app.run(host='0.0.0.0', debug=True, port=80)
     
