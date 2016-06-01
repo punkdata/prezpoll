@@ -48,7 +48,7 @@ def capWords(s):
 @app.route("/index")
 def index():
     elections = db.elections.find({"electionyear":2016})
-    title = "U.S. Prez Pol 2016 - Who are you voting for this Election?"
+    title = "U.S. Prez Poll 2016 - Who are you voting for this Election?"
     #Check if user has already voted
     voted = None
     cook = request.cookies.get('vote') #Check for a cookie
