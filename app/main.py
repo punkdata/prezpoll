@@ -81,7 +81,7 @@ def results():
     
     #Check who is in the lead
     if dem > rep:
-        lead = "Hilary Clinton is currently in the lead."
+        lead = "Hillary Clinton is currently in the lead."
         color = "blue"
     elif dem < rep:
         lead = "Donald Trump is currently in the lead."
