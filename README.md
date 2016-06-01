@@ -11,4 +11,4 @@ Create a DB called `prezpoll`
 
 Create and Election Document in MongoDB
 
-`db.elections.insert({"electionyear" : 2016, "democrat" : "Hilary Clinton", "republican" : "Donald Trump" })`
+`db.elections.insert({"electionyear" : 2016, "democrat" : "Hillary Clinton", "republican" : "Donald Trump" })`
